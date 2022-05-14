@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { defineModule } from 'zoov';
+import { persist } from 'zustand/middleware';
 
 export type ITodoCategory = 'next' | 'project' | 'maybe' | 'waiting';
 export type ITodo = {
@@ -44,5 +45,5 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       createTodo('Learn some Web3 knowledge', 'maybe');
     },
   }))
-  // .middleware((store) => persist(store, { name: 'todo-list', version: 1 }))
+  .middleware((store) => persist(store, { name: 'todo-list', version: 1 }))
   .build();
