@@ -1,8 +1,5 @@
-# React Template Lite
+# Easy GTD
 
-## Main Stack
+## Only the basic features will be added to this app
 
-- Framework: `React 18` `NextJS` `TypeScript`
-- CSS: `TailwindCSS` with `tailwind-iconify`
-- Lint & Format: `ESLint` + `Prettier`
-- DX: `unplugin-auto-imports`
+https://www.figma.com/file/KuNHPSCs1uIoklkDWqW5Oc/Untitled?node-id=6%3A37

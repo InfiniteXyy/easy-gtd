@@ -1,14 +1,14 @@
+import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import Layout from '../components/layout';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider defaultTheme="system" attribute="class">
-      <Layout>
+      <AnimatePresence exitBeforeEnter>
         <Component {...pageProps} />
-      </Layout>
+      </AnimatePresence>
     </ThemeProvider>
   );
 }

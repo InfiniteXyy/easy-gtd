@@ -1,29 +1,39 @@
-import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
+import Link from 'next/link';
+import { Layout, TodoGroup } from '~/components';
+import { useIsServer } from '~/hooks';
+import { todoModule } from '~/store';
 
 export default function Index() {
-  const router = useRouter();
-  const [input, setInput] = useState('');
-
-  function navigateHi() {
-    router.push({ pathname: `/hi/${input}` });
-  }
+  const { initDefaultTodoList } = todoModule.useActions();
+  const isServer = useIsServer();
+  useEffect(() => {
+    initDefaultTodoList();
+  }, [initDefaultTodoList]);
 
   return (
-    <>
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="border-dark-500 dark:border-light-600 my-2 border-b-2 bg-transparent transition focus:border-blue-400 focus:outline-none"
-        placeholder="Your name"
-      />
-      <button
-        className="ml-2 inline-flex items-center rounded bg-blue-100 py-1 px-4 font-bold transition disabled:opacity-40 dark:bg-blue-600 print:hidden"
-        disabled={!input}
-        onClick={navigateHi}
-      >
-        <span>Go</span>
-        <div className="i-[carbon-chevron-right] ml-1 print:hidden" />
-      </button>
-    </>
+    <Layout
+      title={dayjs().format('YYYY.MM.DD')}
+      left={<></>}
+      right={
+        <div className="space-x-5 flex">
+          <Link href="/inbox">
+            <div className="i-[akar-icons-inbox] text-2xl" />
+          </Link>
+          <Link href="/settings">
+            <div className="i-[ant-design-setting-outlined] text-2xl" />
+          </Link>
+        </div>
+      }
+    >
+      {!isServer && (
+        <div className="space-y-2 overflow-auto">
+          <TodoGroup category="next" title="Do now!" />
+          <TodoGroup category="project" title="My daily routine" />
+          <TodoGroup category="waiting" title="Waiting for something" />
+          <TodoGroup category="maybe" title="If I have time" />
+        </div>
+      )}
+    </Layout>
   );
 }

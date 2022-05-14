@@ -9,13 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@iconify/json": "^2.1.43",
+    "dayjs": "^1.11.2",
+    "framer-motion": "^6.3.3",
+    "immer": "^9.0.14",
+    "nanoid": "^3.3.4",
     "next": "12.1.6",
     "next-themes": "^0.2.0",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "tilg": "^0.1.1",
+    "zoov": "^0.2.2",
+    "zustand": "^3"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.4",
     "@types/node": "17.0.33",
     "@types/react": "18.0.9",
     "@types/react-dom": "18.0.4",

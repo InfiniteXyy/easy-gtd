@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'poetsen-one';
+  src: url('/fonts/PoetsenOne-Regular.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
