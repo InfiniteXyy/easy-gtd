@@ -23,6 +23,7 @@ export function TodoCreateModal(props: { visible: boolean; onCancel: () => void 
         placeholder="What do you need to do?"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        autoFocus
       />
       <div className="space-x-5 flex">
         <button

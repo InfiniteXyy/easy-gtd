@@ -40,9 +40,11 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
           <div
             onTouchStart={(e) => controls.start(e)}
             onPointerDown={(e) => controls.start(e)}
-            className="i-[material-symbols-menu] text-xl flex-shrink-0"
+            className="text-xl flex-shrink-0 -m-3 p-3"
             ref={dragRef}
-          />
+          >
+            <div className="i-[material-symbols-menu]" />
+          </div>
         ) : (
           <div
             className={`${
