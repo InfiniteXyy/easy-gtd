@@ -23,7 +23,7 @@ export function TodoItem(props: TodoItemProps) {
       {...longPressProps}
       drag="x"
       dragSnapToOrigin
-      whileTap={{ scale: 0.95 }}
+      whileDrag={{ scale: 0.95 }}
       className={`${
         !todo.checked ? 'text-gray-700' : 'text-gray-300 line-through'
       } flex space-x-2 items-center active:bg-gray-200 p-1 rounded-lg relative`}
@@ -34,7 +34,7 @@ export function TodoItem(props: TodoItemProps) {
           !todo.checked ? 'i-[ri-checkbox-blank-circle-line]' : 'i-[ri-checkbox-circle-line]'
         } text-xl`}
       />
-      <div className="whitespace-nowrap overflow-hidden text-ellipsis text-md font-medium">
+      <div className="whitespace-nowrap overflow-hidden text-ellipsis text-sm font-medium">
         {todo.title}
       </div>
     </motion.div>

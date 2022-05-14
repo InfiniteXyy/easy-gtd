@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { defineModule } from 'zoov';
-import { persist } from 'zustand/middleware';
 
 export type ITodoCategory = 'next' | 'project' | 'maybe' | 'waiting';
 export type ITodo = {
@@ -37,15 +36,13 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       const { createTodo } = getActions();
       const { todoList } = getState();
       if (todoList.length > 0) return;
-      createTodo('Finish the GTD design', 'next');
-      createTodo('Call Alice to the party', 'next');
-      createTodo('Learn Figma for 10 mins', 'project');
-      createTodo('Buy some food', 'project');
-      createTodo('Learn Vue3', 'project');
-      createTodo('Something good happens', 'waiting');
-      createTodo('Buy a car', 'maybe');
-      createTodo('Learn dapp', 'maybe');
+      createTodo('[Finish] me by click', 'next');
+      createTodo('[Create] a task by click the "+" button', 'next');
+      createTodo('[Delete] a task by long press', 'next');
+      createTodo('Put this app on blockchain', 'waiting');
+      createTodo('Clone the Github Repo', 'maybe');
+      createTodo('Learn some Web3 knowledge', 'maybe');
     },
   }))
-  .middleware((store) => persist(store, { name: 'todo-list', version: 1 }))
+  // .middleware((store) => persist(store, { name: 'todo-list', version: 1 }))
   .build();

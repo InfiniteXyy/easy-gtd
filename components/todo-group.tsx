@@ -26,8 +26,8 @@ export function TodoGroup(props: TodoGroupProps) {
 
   return (
     <section>
-      <div className="flex justify-between  mb-2">
-        <h4 className="text-xs text-gray-400">{title}</h4>
+      <div className="flex justify-between mb-4">
+        <h4 className="text-sm text-gray-400">{title}</h4>
         <div className="text-xs text-gray-400">
           {finishedCount} / {todoList.length}
         </div>
