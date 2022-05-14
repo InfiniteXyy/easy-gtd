@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
     "poetsen"
-  ]
+  ],
+  "prettier.configPath": "./prettier.config.js",
 }

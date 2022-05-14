@@ -40,33 +40,33 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
 
   return (
     <section>
-      <div className="flex justify-between mb-2">
+      <div className="mb-2 flex justify-between">
         <h4 className="text-sm text-neutral-400">{title}</h4>
         <div className="text-xs text-neutral-400">
           {finishedCount} / {todoList.length}
         </div>
       </div>
-      <Reorder.Group key={category} values={todoList} onReorder={reorderItems}>
+      <Reorder.Group
+        key={String(category) + todoList.length}
+        values={todoList}
+        onReorder={reorderItems}
+      >
         <div
           ref={dropRef}
           className={`${
             !isOver ? 'bg-neutral-50 dark:bg-neutral-700' : 'bg-neutral-200 dark:bg-neutral-600'
-          } relative p-2 px-4 rounded-lg overflow-hidden`}
+          } relative overflow-hidden rounded-lg p-2 px-4`}
         >
           <div
             className={`${
               category ? categoryColor[category] : 'bg-neutral-100'
-            } absolute left-1 w-1 top-1 bottom-1 rounded`}
+            } absolute left-1 top-1 bottom-1 w-1 rounded`}
           />
 
           {todoList.length > 0 ? (
-            <AnimatePresence>
-              {todoList.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} />
-              ))}
-            </AnimatePresence>
+            todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
           ) : (
-            <div className="leading-10 text-center text-neutral-300 dark:text-neutral-00 font-bold">
+            <div className="dark:text-neutral-00 text-center font-bold leading-10 text-neutral-300">
               No Tasks
             </div>
           )}

@@ -18,16 +18,16 @@ export function TodoCreateModal(props: { visible: boolean; onCancel: () => void 
   return (
     <Modal {...props}>
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold font-poetsen">Create A Task</h1>
+        <h1 className="font-poetsen text-2xl font-bold">Create A Task</h1>
         <input
-          className="h-10 rounded-lg bg-neutral-100 dark:bg-neutral-600 w-full px-4"
+          className="h-10 w-full rounded-lg bg-neutral-100 px-4 dark:bg-neutral-600"
           placeholder="What do you need to do?"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="space-x-4 flex">
+        <div className="flex space-x-4">
           <button
-            className={`${createButtonCls} text-orange-500 !justify-center !w-fit`}
+            className={`${createButtonCls} !w-fit !justify-center text-orange-500`}
             onClick={() => {
               alert('Coming soon');
             }}
@@ -35,14 +35,14 @@ export function TodoCreateModal(props: { visible: boolean; onCancel: () => void 
             <div className="i-[material-symbols-calendar-month-outline] text-2xl" />
           </button>
           <button
-            className={`${createButtonCls} text-orange-500 !justify-start`}
+            className={`${createButtonCls} !justify-start text-orange-500`}
             onClick={handleCreate('maybe')}
           >
             <div className="i-[material-symbols-chevron-left] text-2xl" />
             <span>Later</span>
           </button>
           <button
-            className={`${createButtonCls} text-green-600 !justify-end`}
+            className={`${createButtonCls} !justify-end text-green-600`}
             onClick={handleCreate('next')}
           >
             <span>Do Now</span>

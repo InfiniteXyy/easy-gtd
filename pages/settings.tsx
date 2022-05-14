@@ -4,7 +4,7 @@ import { BackButton, Layout, Switch } from '~/components';
 import { useIsServer } from '~/hooks';
 
 export default function Settings() {
-  const { theme, setTheme, systemTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const isServer = useIsServer();
   if (isServer) return null;
   return (
@@ -38,8 +38,8 @@ export default function Settings() {
 
 function SettingItem(props: { title: string; right: React.ReactNode }) {
   return (
-    <div className="flex justify-between items-center py-2 px-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-      <div className="opacity-80 font-medium">{props.title}</div>
+    <div className="flex items-center justify-between rounded-lg bg-neutral-50 py-2 px-3 dark:bg-neutral-800">
+      <div className="font-medium opacity-80">{props.title}</div>
       {props.right}
     </div>
   );

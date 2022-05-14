@@ -19,12 +19,12 @@ export default function Index() {
       title={dayjs().format('YYYY.MM.DD')}
       left={<></>}
       right={
-        <div className="space-x-5 flex">
+        <div className="flex space-x-5">
           <Link href="/settings">
             <div className="i-[ant-design-setting-outlined] text-2xl" />
           </Link>
           <div
-            className={`${isInEditMode ? "i-[ic-round-check]" : "i-[akar-icons-edit]"} text-2xl`}
+            className={`${isInEditMode ? 'i-[ic-round-check]' : 'i-[akar-icons-edit]'} text-2xl`}
             onClick={() => setInEditMode(!isInEditMode)}
           />
           <div

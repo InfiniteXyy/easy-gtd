@@ -19,29 +19,21 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
   }));
 
   return (
-    <Reorder.Item
-      key={todo.id}
-      value={todo}
-      dragListener={false}
-      dragControls={controls}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, height: 0 }}
-    >
+    <Reorder.Item key={todo.id} value={todo} dragListener={false} dragControls={controls}>
       <div
         style={{ opacity: collected.isDragging ? 0.4 : 1 }}
         className={`${
           !todo.checked
             ? 'text-neutral-700 dark:text-neutral-100'
-            : 'text-neutral-300 dark:text-neutral-500 line-through'
-        } flex space-x-2 items-center active:bg-neutral-100 active:dark:bg-neutral-600 px-1 py-1.5 rounded-lg relative`}
+            : 'text-neutral-300 line-through dark:text-neutral-500'
+        } relative flex items-center space-x-2 rounded-lg px-1 py-1.5 active:bg-neutral-100 active:dark:bg-neutral-600`}
         onClick={isInEditMode ? undefined : () => updateTodoChecked(todo.id, !todo.checked)}
       >
         {isInEditMode ? (
           <div
             onTouchStart={(e) => controls.start(e)}
             onPointerDown={(e) => controls.start(e)}
-            className="text-xl flex-shrink-0 -m-3 p-3"
+            className="-m-3 flex-shrink-0 p-3 text-xl"
             ref={dragRef}
           >
             <div className="i-[material-symbols-menu]" />
@@ -50,17 +42,17 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
           <div
             className={`${
               !todo.checked ? 'i-[ri-checkbox-blank-circle-line]' : 'i-[ri-checkbox-circle-line]'
-            } text-xl flex-shrink-0`}
+            } flex-shrink-0 text-xl`}
           />
         )}
         {isInEditMode ? (
           <input
             value={todo.title}
             onChange={(e) => updateTodoTitle(todo.id, e.target.value)}
-            className="w-full text-sm font-medium bg-transparent outline-none focus:underline"
+            className="w-full bg-transparent text-sm font-medium outline-none focus:underline"
           />
         ) : (
-          <div className="whitespace-nowrap overflow-hidden text-ellipsis text-sm font-medium">
+          <div className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium">
             {todo.title}
           </div>
         )}
@@ -73,7 +65,7 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
           </div>
         )}
         {!todo.checked && !isInEditMode && !dayjs(todo.createdAt).isSame(dayjs(), 'day') && (
-          <div className="whitespace-nowrap text-xs text-orange-300 flex-1 text-right">
+          <div className="flex-1 whitespace-nowrap text-right text-xs text-orange-300">
             {dayjs(todo.createdAt).fromNow(true)}
           </div>
         )}

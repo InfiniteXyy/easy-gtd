@@ -9,10 +9,10 @@ interface LayoutProps {
 }
 export function Layout({ children, left, right, title }: LayoutProps) {
   return (
-    <div className="text-neutral-900 dark:text-neutral-200 max-w-[600px] mx-auto p-5 h-full overflow-hidden flex flex-col">
+    <div className="mx-auto flex h-full max-w-[600px] flex-col overflow-hidden p-5 text-neutral-900 dark:text-neutral-200">
       <header className="flex items-center justify-between pb-5">
         {left ?? <div />}
-        <h1 className="text-2xl font-bold font-poetsen">{title}</h1>
+        <h1 className="font-poetsen text-2xl font-bold">{title}</h1>
         {right ?? <div />}
       </header>
       <motion.main
