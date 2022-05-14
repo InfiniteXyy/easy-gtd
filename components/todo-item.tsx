@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useLongPress } from 'react-use';
 import { ITodo, todoModule } from '~/store';
 
 interface TodoItemProps {
@@ -9,19 +10,19 @@ export function TodoItem(props: TodoItemProps) {
   const { todo } = props;
   const { updateTodoChecked, deleteTodo } = todoModule.useActions();
 
+  const longPressProps = useLongPress(
+    () => confirm('Do you want to delete ' + todo.title) && deleteTodo(todo.id),
+    { delay: 600, isPreventDefault: false }
+  );
   const onChange = () => {
     updateTodoChecked(todo.id, !todo.checked);
   };
 
   return (
     <motion.div
+      {...longPressProps}
       drag="x"
       dragSnapToOrigin
-      onDragEnd={(_event, info) => {
-        if (Math.abs(info.offset.x) > 100) {
-          deleteTodo(todo.id);
-        }
-      }}
       whileTap={{ scale: 0.95 }}
       className={`${
         !todo.checked ? 'text-gray-700' : 'text-gray-300 line-through'
