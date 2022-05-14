@@ -33,7 +33,9 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
   const [{ isOver }, dropRef] = useDrop(() => ({
     accept: 'TodoItem',
     collect: (monitor) => ({ isOver: monitor.isOver() }),
-    drop: (item: { id: string }) => updateTodoCategory(item.id, props.category),
+    drop: (item: { id: string }) => {
+      updateTodoCategory(item.id, props.category);
+    },
   }));
 
   return (

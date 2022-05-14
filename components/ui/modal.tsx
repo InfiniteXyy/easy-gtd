@@ -18,7 +18,7 @@ export function Modal(props: ModalProps) {
       <AnimatePresence>
         {visible && (
           <motion.div
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.1, ease: 'linear' }}
             onClick={onCancel}
             className="absolute inset-0 bg-black -z-1"
             initial={{ opacity: 0 }}
@@ -29,8 +29,13 @@ export function Modal(props: ModalProps) {
       </AnimatePresence>
       <AnimatePresence>
         {visible && (
-          <motion.div initial={{ y: 300 }} animate={{ y: 0 }} exit={{ y: 300 }}>
-            <div className="z-20 space-y-5 h-[350px] p-5 bg-white dark:bg-neutral-800 rounded-tl-3xl rounded-tr-3xl shadow-xl border-2 border-b-0 border-black dark:border-neutral-300 fixed -bottom-[50px] left-0 right-0">
+          <motion.div
+            transition={{ ease: 'easeInOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="z-20 p-5 bg-white dark:bg-neutral-800 rounded-tl-3xl rounded-tr-3xl shadow-xl border-2 border-b-0 border-black dark:border-neutral-300 fixed bottom-0 left-0 right-0">
               {children}
             </div>
           </motion.div>
