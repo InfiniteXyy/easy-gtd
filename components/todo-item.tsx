@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useLongPress } from 'react-use';
 import { ITodo, todoModule } from '~/store';
 dayjs.extend(relativeTime);
 
@@ -12,22 +11,17 @@ export function TodoItem(props: TodoItemProps) {
   const { todo } = props;
   const { updateTodoChecked, deleteTodo } = todoModule.useActions();
 
-  const longPressProps = useLongPress(
-    () => confirm('Do you want to delete ' + todo.title) && deleteTodo(todo.id),
-    { delay: 600, isPreventDefault: false }
-  );
   const onChange = () => {
     updateTodoChecked(todo.id, !todo.checked);
   };
 
   return (
     <div
-      {...longPressProps}
       className={`${
         !todo.checked
           ? 'text-neutral-700 dark:text-neutral-100'
           : 'text-neutral-300 dark:text-neutral-500 line-through'
-      } flex space-x-2 items-center active:bg-neutral-200 active:dark:bg-neutral-600 px-1 py-1.5 rounded-lg relative`}
+      } flex space-x-2 items-center active:bg-neutral-100 active:dark:bg-neutral-600 px-1 py-1.5 rounded-lg relative`}
       onClick={onChange}
     >
       <div

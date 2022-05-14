@@ -30,7 +30,7 @@ export function TodoCreateModal(props: { visible: boolean; onCancel: () => void 
           onClick={handleCreate('maybe')}
         >
           <div className="i-[material-symbols-chevron-left] text-2xl" />
-          <span>Later</span>
+          <span>Maybe</span>
         </button>
         <button
           className={`${createButtonCls} text-green-600 !justify-end`}

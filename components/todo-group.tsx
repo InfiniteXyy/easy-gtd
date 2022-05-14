@@ -8,10 +8,10 @@ interface TodoGroupProps {
 }
 
 const categoryColor: Record<ITodoCategory, string> = {
-  next: 'border-green-400',
-  maybe: 'border-yellow-400',
-  project: 'border-blue-400',
-  waiting: 'border-gray-500',
+  next: 'bg-green-300',
+  maybe: 'bg-yellow-300',
+  project: 'bg-blue-300',
+  waiting: 'bg-gray-400',
 };
 export function TodoGroup(props: TodoGroupProps) {
   const { title, category } = props;
@@ -33,10 +33,13 @@ export function TodoGroup(props: TodoGroupProps) {
         </div>
       </div>
       <div
-        className={`${
-          category ? categoryColor[category] : ''
-        } p-2 rounded-r-lg bg-neutral-50 dark:bg-neutral-700 border-l-4 overflow-hidden`}
+        className={`relative p-2 px-4 rounded-lg bg-neutral-50 dark:bg-neutral-700 overflow-hidden`}
       >
+        <div
+          className={`${
+            category ? categoryColor[category] : ''
+          } absolute left-1 w-1 top-1 bottom-1 rounded`}
+        />
         {todoList.length > 0 ? (
           todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
         ) : (

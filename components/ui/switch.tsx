@@ -1,12 +1,17 @@
 import { Switch as UISwitch } from '@headlessui/react';
 
-export function Switch(props: { enabled: boolean; setEnabled: (value: boolean) => void }) {
-  const { enabled, setEnabled } = props;
+export function Switch(props: {
+  enabled: boolean;
+  setEnabled: (value: boolean) => void;
+  disabled?: boolean;
+}) {
+  const { enabled, setEnabled, disabled } = props;
   return (
     <UISwitch
       checked={enabled}
       onChange={setEnabled}
-      className={`${enabled ? 'bg-blue-500' : 'bg-blue-100'}
+      disabled={disabled}
+      className={`${enabled ? 'bg-blue-500' : 'bg-blue-300'} ${disabled && 'opacity-40'}
     relative inline-flex h-[20px] w-[36px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
     >
       <span className="sr-only">Use setting</span>

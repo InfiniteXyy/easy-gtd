@@ -44,7 +44,7 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       if (todoList.length > 0) return;
       createTodo('[Finish] me by click', 'next');
       createTodo('[Create] a task by click the "+" button', 'next');
-      createTodo('[Delete] a task by long press', 'next');
+      createTodo('[Delete] a task by enter edit mode', 'next');
       createTodo('Put this app on blockchain', 'waiting', '2022-05-13');
       createTodo('Clone the Github Repo', 'maybe');
       createTodo('Learn some Web3 knowledge', 'maybe');
