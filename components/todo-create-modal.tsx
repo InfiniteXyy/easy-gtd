@@ -1,14 +1,30 @@
 import { ITodoCategory, todoModule } from '~/store';
-import { Modal } from './ui';
+import { Modal, WeekDaySelect } from './ui';
 
-export function TodoCreateModal(props: { visible: boolean; onCancel: () => void }) {
+interface TodoCreateModalProps {
+  visible: boolean;
+  onCancel: () => void;
+}
+
+export function TodoCreateModal(props: TodoCreateModalProps) {
   const [input, setInput] = useState('');
+  const [isCreatingRoutine, setIsCreatingRoutine] = useState(false);
+  const [routineWeekDays, setRoutineWeekDays] = useState<number[]>([]);
 
-  const { createTodo } = todoModule.useActions();
+  const { createTodo, createRoutine, applyRoutineTodos } = todoModule.useActions();
 
   const handleCreate = (category?: ITodoCategory) => () => {
     if (!input) return;
-    createTodo(input, category);
+
+    if (category === 'project') {
+      // creating routine
+      createRoutine(input, routineWeekDays);
+      applyRoutineTodos();
+      setRoutineWeekDays([]);
+    } else {
+      // creating task
+      createTodo(input, category);
+    }
     setInput('');
     props.onCancel();
   };
@@ -25,34 +41,47 @@ export function TodoCreateModal(props: { visible: boolean; onCancel: () => void 
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
+        {isCreatingRoutine && (
+          <WeekDaySelect value={routineWeekDays} onChange={setRoutineWeekDays} />
+        )}
         <div className="flex space-x-4">
           <button
-            className={`${createButtonCls} !w-fit !justify-center text-orange-500`}
-            onClick={() => {
-              alert('Coming soon');
-            }}
+            className={`${createButtonCls} ${
+              isCreatingRoutine ? 'bg-orange-400 text-white' : 'text-orange-500'
+            } !w-fit !justify-center`}
+            onClick={() => setIsCreatingRoutine(!isCreatingRoutine)}
           >
             <div className="i-[material-symbols-calendar-month-outline] text-2xl" />
           </button>
-          <button
-            className={`${createButtonCls} !justify-start text-orange-500`}
-            onClick={handleCreate('maybe')}
-          >
-            <div className="i-[material-symbols-chevron-left] text-2xl" />
-            <span>Later</span>
-          </button>
-          <button
-            className={`${createButtonCls} !justify-end text-green-600`}
-            onClick={handleCreate('next')}
-          >
-            <span>Do Now</span>
-            <div className="i-[material-symbols-chevron-right] text-2xl" />
-          </button>
+          {isCreatingRoutine ? (
+            <button className={createButtonCls} onClick={handleCreate('project')}>
+              Set as Routine
+            </button>
+          ) : (
+            <>
+              <button
+                className={`${createButtonCls} !justify-start text-orange-500`}
+                onClick={handleCreate('maybe')}
+              >
+                <div className="i-[material-symbols-chevron-left] text-2xl" />
+                <span>Later</span>
+              </button>
+              <button
+                className={`${createButtonCls} !justify-end text-green-600`}
+                onClick={handleCreate('next')}
+              >
+                <span>Do Now</span>
+                <div className="i-[material-symbols-chevron-right] text-2xl" />
+              </button>
+            </>
+          )}
         </div>
-        <button className={createButtonCls} onClick={handleCreate()}>
-          <div className="i-[akar-icons-inbox] text-xl" />
-          <span>Put in the inbox</span>
-        </button>
+        {!isCreatingRoutine && (
+          <button className={createButtonCls} onClick={handleCreate()}>
+            <div className="i-[akar-icons-inbox] text-xl" />
+            <span>Put in the inbox</span>
+          </button>
+        )}
       </div>
     </Modal>
   );

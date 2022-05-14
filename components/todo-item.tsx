@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { Reorder, useDragControls } from 'framer-motion';
+import Link from 'next/link';
 import { useDrag } from 'react-dnd';
 import { ITodo, todoModule, uiModule } from '~/store';
 
@@ -26,7 +27,7 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
           !todo.checked
             ? 'text-neutral-700 dark:text-neutral-100'
             : 'text-neutral-300 line-through dark:text-neutral-500'
-        } relative flex items-center space-x-2 rounded-lg px-1 py-1.5 active:bg-neutral-100 active:dark:bg-neutral-600`}
+        } relative flex items-center space-x-2 rounded-lg py-1.5 pl-1 active:bg-neutral-100 active:dark:bg-neutral-600`}
         onClick={isInEditMode ? undefined : () => updateTodoChecked(todo.id, !todo.checked)}
       >
         {isInEditMode ? (
@@ -57,15 +58,22 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
           </div>
         )}
         {isInEditMode && (
-          <div style={{ marginLeft: 'auto' }} className="flex space-x-2">
+          <div className="flex flex-1 justify-end space-x-2">
             <div
-              className="i-[carbon-trash-can] !text-red-500"
+              className="i-[ic-round-delete] !text-red-500"
               onClick={() => deleteTodo(todo.id)}
             />
           </div>
         )}
+        {todo.routineId && !isInEditMode && (
+          <Link href="/settings">
+            <div className="flex flex-1 justify-end" onClick={(e) => e.stopPropagation()}>
+              <div className="i-[material-symbols-calendar-month-outline] text-blue-300" />
+            </div>
+          </Link>
+        )}
         {!todo.checked && !isInEditMode && !dayjs(todo.createdAt).isSame(dayjs(), 'day') && (
-          <div className="flex-1 whitespace-nowrap text-right text-xs text-orange-300">
+          <div className="flex-1 whitespace-nowrap text-right text-xs font-bold text-orange-300">
             {dayjs(todo.createdAt).fromNow(true)}
           </div>
         )}

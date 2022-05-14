@@ -11,9 +11,9 @@ interface TodoGroupProps {
 }
 
 const categoryColor: Record<ITodoCategory, string> = {
-  next: 'bg-green-300',
-  maybe: 'bg-yellow-300',
-  project: 'bg-blue-300',
+  next: 'bg-green-400',
+  maybe: 'bg-yellow-400',
+  project: 'bg-blue-400',
   waiting: 'bg-gray-400',
 };
 
@@ -23,6 +23,7 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
   const [todoList, { updateTodoCategory, reorderItems }] = todoModule.use(
     (state) =>
       state.todoList
+        .filter((i) => !i.isDeleted)
         .filter((i) => i.category === category)
         .filter((i) => !i.finishedAt || dayjs(i.finishedAt).isSame(dayjs(), 'day')),
     shallow
@@ -54,7 +55,7 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
         <div
           ref={dropRef}
           className={`${
-            !isOver ? 'bg-neutral-50 dark:bg-neutral-700' : 'bg-neutral-200 dark:bg-neutral-600'
+            !isOver ? 'bg-neutral-100 dark:bg-neutral-700' : 'bg-neutral-200 dark:bg-neutral-600'
           } relative overflow-hidden rounded-lg p-2 px-4`}
         >
           <div
@@ -66,7 +67,7 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
           {todoList.length > 0 ? (
             todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
           ) : (
-            <div className="dark:text-neutral-00 text-center font-bold leading-10 text-neutral-300">
+            <div className="dark:text-neutral-500 text-center font-medium leading-10 text-neutral-300">
               No Tasks
             </div>
           )}

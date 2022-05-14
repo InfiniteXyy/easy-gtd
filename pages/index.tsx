@@ -5,14 +5,15 @@ import { useIsServer } from '~/hooks';
 import { todoModule, uiModule } from '~/store';
 
 export default function Index() {
-  const { initDefaultTodoList } = todoModule.useActions();
+  const { initDefaultTodoList, applyRoutineTodos } = todoModule.useActions();
   const [{ isInEditMode }, { setInEditMode }] = uiModule.use();
   const [addModalVisible, setAddModalVisible] = useState(false);
 
   const isServer = useIsServer();
   useEffect(() => {
     initDefaultTodoList();
-  }, [initDefaultTodoList]);
+    applyRoutineTodos();
+  }, [applyRoutineTodos, initDefaultTodoList]);
 
   return (
     <Layout

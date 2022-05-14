@@ -1,6 +1,6 @@
 import { useTheme } from 'next-themes';
 import React from 'react';
-import { BackButton, Layout, Switch } from '~/components';
+import { BackButton, Layout, Switch, RoutineList } from '~/components';
 import { useIsServer } from '~/hooks';
 
 export default function Settings() {
@@ -31,6 +31,7 @@ export default function Settings() {
             />
           }
         />
+        <RoutineList />
       </div>
     </Layout>
   );
