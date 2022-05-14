@@ -30,7 +30,7 @@ export function Modal(props: ModalProps) {
       <AnimatePresence>
         {visible && (
           <motion.div initial={{ y: 350 }} animate={{ y: 0 }} exit={{ y: 350 }}>
-            <div className="z-20 space-y-5 h-[400px] p-5 bg-white dark:bg-neutral-800 rounded-tl-3xl rounded-tr-3xl border border-b-0 border-black dark:border-neutral-300 fixed -bottom-[50px] left-0 right-0">
+            <div className="z-20 space-y-5 h-[400px] p-5 bg-white dark:bg-neutral-800 rounded-tl-3xl rounded-tr-3xl shadow-xl border-2 border-b-0 border-black dark:border-neutral-300 fixed -bottom-[50px] left-0 right-0">
               {children}
             </div>
           </motion.div>

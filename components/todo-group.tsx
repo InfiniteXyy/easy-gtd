@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useDrop } from 'react-dnd';
 import { ITodoCategory, todoModule } from '~/store';
 import { TodoItem } from './todo-item';
 
@@ -16,13 +17,19 @@ const categoryColor: Record<ITodoCategory, string> = {
 export function TodoGroup(props: TodoGroupProps) {
   const { title, category } = props;
 
-  const todoList = todoModule.useState((state) =>
+  const [todoList, { updateTodoCategory }] = todoModule.use((state) =>
     state.todoList
       .filter((i) => i.category === category)
       .filter((i) => !i.finishedAt || dayjs(i.finishedAt).isSame(dayjs(), 'day'))
   );
 
   const finishedCount = todoList.filter((i) => i.checked).length;
+
+  const [{ isOver }, dropRef] = useDrop(() => ({
+    accept: 'TodoItem',
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
+    drop: (item: { id: string }) => updateTodoCategory(item.id, props.category),
+  }));
 
   return (
     <section>
@@ -33,17 +40,20 @@ export function TodoGroup(props: TodoGroupProps) {
         </div>
       </div>
       <div
-        className={`relative p-2 px-4 rounded-lg bg-neutral-50 dark:bg-neutral-700 overflow-hidden`}
+        ref={dropRef}
+        className={`${
+          !isOver ? 'bg-neutral-50 dark:bg-neutral-700' : 'bg-neutral-200 dark:bg-neutral-600'
+        } relative p-2 px-4 rounded-lg overflow-hidden`}
       >
         <div
           className={`${
-            category ? categoryColor[category] : ''
+            category ? categoryColor[category] : 'bg-neutral-100'
           } absolute left-1 w-1 top-1 bottom-1 rounded`}
         />
         {todoList.length > 0 ? (
           todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
         ) : (
-          <div className="leading-10 text-center text-neutral-200 dark:text-neutral-500 font-bold">
+          <div className="leading-10 text-center text-neutral-300 dark:text-neutral-00 font-bold">
             No Tasks
           </div>
         )}

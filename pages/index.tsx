@@ -2,12 +2,13 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import { Layout, TodoCreateModal, TodoGroup } from '~/components';
 import { useIsServer } from '~/hooks';
-import { todoModule } from '~/store';
+import { todoModule, uiModule } from '~/store';
 
 export default function Index() {
   const { initDefaultTodoList } = todoModule.useActions();
-
+  const [{ isInEditMode }, { setInEditMode }] = uiModule.use();
   const [addModalVisible, setAddModalVisible] = useState(false);
+
   const isServer = useIsServer();
   useEffect(() => {
     initDefaultTodoList();
@@ -22,9 +23,10 @@ export default function Index() {
           <Link href="/settings">
             <div className="i-[ant-design-setting-outlined] text-2xl" />
           </Link>
-          <Link href="/inbox">
-            <div className="i-[akar-icons-inbox] text-2xl" />
-          </Link>
+          <div
+            className={`${isInEditMode ? "i-[ic-round-check]" : "i-[akar-icons-edit]"} text-2xl`}
+            onClick={() => setInEditMode(!isInEditMode)}
+          />
           <div
             className="i-[ic-round-add-circle-outline] text-2xl"
             onClick={() => setAddModalVisible(!addModalVisible)}
@@ -39,6 +41,7 @@ export default function Index() {
           <TodoGroup category="project" title="Daily" />
           <TodoGroup category="waiting" title="Waiting For" />
           <TodoGroup category="maybe" title="Maybe" />
+          <TodoGroup title="Inbox" />
           <div className="text-xs text-neutral-300">
             Unfinished tasks will be carried over to tomorrow
           </div>

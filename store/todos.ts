@@ -29,6 +29,11 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       if (!todo) return;
       todo.category = category;
     },
+    updateTodoTitle(state, id: string, title?: string) {
+      const todo = state.todoList.find((i) => i.id === id);
+      if (!todo) return;
+      todo.title = title || 'Empty';
+    },
     createTodo: (state, title: string, category?: ITodoCategory, createAt?: string) => {
       const createdAt = createAt || dayjs().toISOString();
       state.todoList.push({ id: nanoid(), title, createdAt, checked: false, category });
