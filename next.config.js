@@ -2,7 +2,7 @@ const AutoImport = require('unplugin-auto-import/webpack');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack(config) {
     config.plugins.push(AutoImport({ imports: ['react'] }));
     return config;

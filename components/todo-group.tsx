@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
+import { AnimatePresence, Reorder } from 'framer-motion';
 import { useDrop } from 'react-dnd';
+import shallow from 'zustand/shallow';
 import { ITodoCategory, todoModule } from '~/store';
 import { TodoItem } from './todo-item';
 
@@ -14,13 +16,16 @@ const categoryColor: Record<ITodoCategory, string> = {
   project: 'bg-blue-300',
   waiting: 'bg-gray-400',
 };
-export function TodoGroup(props: TodoGroupProps) {
+
+export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
   const { title, category } = props;
 
-  const [todoList, { updateTodoCategory }] = todoModule.use((state) =>
-    state.todoList
-      .filter((i) => i.category === category)
-      .filter((i) => !i.finishedAt || dayjs(i.finishedAt).isSame(dayjs(), 'day'))
+  const [todoList, { updateTodoCategory, reorderItems }] = todoModule.use(
+    (state) =>
+      state.todoList
+        .filter((i) => i.category === category)
+        .filter((i) => !i.finishedAt || dayjs(i.finishedAt).isSame(dayjs(), 'day')),
+    shallow
   );
 
   const finishedCount = todoList.filter((i) => i.checked).length;
@@ -39,25 +44,32 @@ export function TodoGroup(props: TodoGroupProps) {
           {finishedCount} / {todoList.length}
         </div>
       </div>
-      <div
-        ref={dropRef}
-        className={`${
-          !isOver ? 'bg-neutral-50 dark:bg-neutral-700' : 'bg-neutral-200 dark:bg-neutral-600'
-        } relative p-2 px-4 rounded-lg overflow-hidden`}
-      >
+      <Reorder.Group values={todoList} onReorder={reorderItems}>
         <div
+          ref={dropRef}
           className={`${
-            category ? categoryColor[category] : 'bg-neutral-100'
-          } absolute left-1 w-1 top-1 bottom-1 rounded`}
-        />
-        {todoList.length > 0 ? (
-          todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
-        ) : (
-          <div className="leading-10 text-center text-neutral-300 dark:text-neutral-00 font-bold">
-            No Tasks
-          </div>
-        )}
-      </div>
+            !isOver ? 'bg-neutral-50 dark:bg-neutral-700' : 'bg-neutral-200 dark:bg-neutral-600'
+          } relative p-2 px-4 rounded-lg overflow-hidden`}
+        >
+          <div
+            className={`${
+              category ? categoryColor[category] : 'bg-neutral-100'
+            } absolute left-1 w-1 top-1 bottom-1 rounded`}
+          />
+
+          {todoList.length > 0 ? (
+            <AnimatePresence>
+              {todoList.map((todo) => (
+                <TodoItem key={todo.id} todo={todo} />
+              ))}
+            </AnimatePresence>
+          ) : (
+            <div className="leading-10 text-center text-neutral-300 dark:text-neutral-00 font-bold">
+              No Tasks
+            </div>
+          )}
+        </div>
+      </Reorder.Group>
     </section>
   );
-}
+});

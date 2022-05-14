@@ -3,6 +3,10 @@ import { nanoid } from 'nanoid';
 import { defineModule } from 'zoov';
 import { persist } from 'zustand/middleware';
 
+function sorterBy<T>(pick: (object: T) => boolean | number | string) {
+  return (a: T, b: T) => (pick(a) < pick(b) ? -1 : 1);
+}
+
 export type ITodoCategory = 'next' | 'project' | 'maybe' | 'waiting';
 export type ITodo = {
   id: string;
@@ -34,11 +38,16 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       if (!todo) return;
       todo.title = title || 'Empty';
     },
-    createTodo: (state, title: string, category?: ITodoCategory, createAt?: string) => {
+    reorderItems(state, todos: ITodo[]) {
+      state.todoList = [...state.todoList].sort(
+        sorterBy((i) => todos.findIndex((todo) => todo.id === i.id))
+      );
+    },
+    createTodo(state, title: string, category?: ITodoCategory, createAt?: string) {
       const createdAt = createAt || dayjs().toISOString();
       state.todoList.push({ id: nanoid(), title, createdAt, checked: false, category });
     },
-    deleteTodo: (state, id: string) => {
+    deleteTodo(state, id: string) {
       state.todoList = state.todoList.filter((i) => i.id !== id);
     },
   })
@@ -55,5 +64,5 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       createTodo('Learn some Web3 knowledge', 'maybe');
     },
   }))
-  .middleware((store) => persist(store, { name: 'todo-list', version: 2 }))
+  .middleware((store) => persist(store, { name: 'todo-list', version: 3 }))
   .build();
