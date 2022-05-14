@@ -20,6 +20,7 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
 
   return (
     <Reorder.Item
+      key={todo.id}
       value={todo}
       dragListener={false}
       dragControls={controls}
