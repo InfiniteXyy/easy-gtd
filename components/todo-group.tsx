@@ -26,21 +26,23 @@ export function TodoGroup(props: TodoGroupProps) {
 
   return (
     <section>
-      <div className="flex justify-between mb-4">
-        <h4 className="text-sm text-gray-400">{title}</h4>
-        <div className="text-xs text-gray-400">
+      <div className="flex justify-between mb-2">
+        <h4 className="text-sm text-neutral-400">{title}</h4>
+        <div className="text-xs text-neutral-400">
           {finishedCount} / {todoList.length}
         </div>
       </div>
       <div
         className={`${
           category ? categoryColor[category] : ''
-        } p-2 rounded-r-lg bg-gray-50 space-y-1 border-l-4 overflow-hidden`}
+        } p-2 rounded-r-lg bg-neutral-50 dark:bg-neutral-700 border-l-4 overflow-hidden`}
       >
         {todoList.length > 0 ? (
           todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
         ) : (
-          <div className="leading-10 text-center text-gray-200 font-bold">No Tasks</div>
+          <div className="leading-10 text-center text-neutral-200 dark:text-neutral-500 font-bold">
+            No Tasks
+          </div>
         )}
       </div>
     </section>

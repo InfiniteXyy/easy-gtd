@@ -35,10 +35,10 @@ export default function Index() {
       <TodoCreateModal visible={addModalVisible} onCancel={() => setAddModalVisible(false)} />
       {!isServer && (
         <div className="space-y-4 overflow-auto">
-          <TodoGroup category="next" title="Do now!" />
-          <TodoGroup category="project" title="My daily routine" />
-          <TodoGroup category="waiting" title="Waiting for something" />
-          <TodoGroup category="maybe" title="If I have time" />
+          <TodoGroup category="next" title="Next" />
+          <TodoGroup category="project" title="Daily" />
+          <TodoGroup category="waiting" title="Waiting For" />
+          <TodoGroup category="maybe" title="Maybe" />
           <div className="text-xs text-neutral-300">
             Unfinished tasks will be carried over to tomorrow
           </div>

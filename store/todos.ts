@@ -24,8 +24,13 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       else todo.checked = checked;
       if (todo.checked) todo.finishedAt = dayjs().toISOString();
     },
-    createTodo: (state, title: string, category?: ITodoCategory) => {
-      const createdAt = dayjs().toISOString();
+    updateTodoCategory(state, id: string, category?: ITodoCategory) {
+      const todo = state.todoList.find((i) => i.id === id);
+      if (!todo) return;
+      todo.category = category;
+    },
+    createTodo: (state, title: string, category?: ITodoCategory, createAt?: string) => {
+      const createdAt = createAt || dayjs().toISOString();
       state.todoList.push({ id: nanoid(), title, createdAt, checked: false, category });
     },
     deleteTodo: (state, id: string) => {
@@ -40,10 +45,10 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       createTodo('[Finish] me by click', 'next');
       createTodo('[Create] a task by click the "+" button', 'next');
       createTodo('[Delete] a task by long press', 'next');
-      createTodo('Put this app on blockchain', 'waiting');
+      createTodo('Put this app on blockchain', 'waiting', '2022-05-13');
       createTodo('Clone the Github Repo', 'maybe');
       createTodo('Learn some Web3 knowledge', 'maybe');
     },
   }))
-  .middleware((store) => persist(store, { name: 'todo-list', version: 1 }))
+  .middleware((store) => persist(store, { name: 'todo-list', version: 2 }))
   .build();

@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { useLongPress } from 'react-use';
 import { ITodo, todoModule } from '~/store';
+dayjs.extend(relativeTime);
 
 interface TodoItemProps {
   todo: ITodo;
@@ -19,14 +21,13 @@ export function TodoItem(props: TodoItemProps) {
   };
 
   return (
-    <motion.div
+    <div
       {...longPressProps}
-      drag="x"
-      dragSnapToOrigin
-      whileDrag={{ scale: 0.95 }}
       className={`${
-        !todo.checked ? 'text-gray-700' : 'text-gray-300 line-through'
-      } flex space-x-2 items-center active:bg-gray-200 p-1 rounded-lg relative`}
+        !todo.checked
+          ? 'text-neutral-700 dark:text-neutral-100'
+          : 'text-neutral-300 dark:text-neutral-500 line-through'
+      } flex space-x-2 items-center active:bg-neutral-200 active:dark:bg-neutral-600 px-1 py-1.5 rounded-lg relative`}
       onClick={onChange}
     >
       <div
@@ -37,6 +38,11 @@ export function TodoItem(props: TodoItemProps) {
       <div className="whitespace-nowrap overflow-hidden text-ellipsis text-sm font-medium">
         {todo.title}
       </div>
-    </motion.div>
+      {!todo.checked && !dayjs(todo.createdAt).isSame(dayjs(), 'day') && (
+        <div className="whitespace-nowrap text-xs text-orange-300 flex-1 text-right">
+          {dayjs(todo.createdAt).fromNow(true)}
+        </div>
+      )}
+    </div>
   );
 }

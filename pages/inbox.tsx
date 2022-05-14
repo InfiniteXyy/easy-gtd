@@ -1,9 +1,9 @@
-import { BackButton, Layout } from "~/components";
+import { BackButton, Layout, TodoGroup } from '~/components';
 
 export default function Inbox() {
   return (
     <Layout title="Inbox" left={<BackButton />}>
-      <div>WIP</div>
+      <TodoGroup title="Inbox" />
     </Layout>
   );
 }
