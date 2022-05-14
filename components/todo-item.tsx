@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { ITodo, todoModule } from '~/store';
 
 interface TodoItemProps {
@@ -6,17 +7,25 @@ interface TodoItemProps {
 
 export function TodoItem(props: TodoItemProps) {
   const { todo } = props;
-  const { updateTodoChecked } = todoModule.useActions();
+  const { updateTodoChecked, deleteTodo } = todoModule.useActions();
 
   const onChange = () => {
     updateTodoChecked(todo.id, !todo.checked);
   };
 
   return (
-    <div
+    <motion.div
+      drag="x"
+      dragSnapToOrigin
+      onDragEnd={(_event, info) => {
+        if (Math.abs(info.offset.x) > 100) {
+          deleteTodo(todo.id);
+        }
+      }}
+      whileTap={{ scale: 0.95 }}
       className={`${
         !todo.checked ? 'text-gray-700' : 'text-gray-300 line-through'
-      } flex space-x-2 items-center transition`}
+      } flex space-x-2 items-center active:bg-gray-200 p-1 rounded-lg relative`}
       onClick={onChange}
     >
       <div
@@ -24,9 +33,9 @@ export function TodoItem(props: TodoItemProps) {
           !todo.checked ? 'i-[ri-checkbox-blank-circle-line]' : 'i-[ri-checkbox-circle-line]'
         } text-xl`}
       />
-      <div className="whitespace-nowrap overflow-hidden text-ellipsis text-md font-bold font-poetsen">
+      <div className="whitespace-nowrap overflow-hidden text-ellipsis text-md font-medium">
         {todo.title}
       </div>
-    </div>
+    </motion.div>
   );
 }

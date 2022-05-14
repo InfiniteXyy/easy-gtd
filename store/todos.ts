@@ -10,6 +10,7 @@ export type ITodo = {
   checked: boolean;
   createdAt: string;
   category?: ITodoCategory;
+  finishedAt?: string;
 };
 
 export const todoModule = defineModule<{ todoList: ITodo[] }>({
@@ -21,10 +22,14 @@ export const todoModule = defineModule<{ todoList: ITodo[] }>({
       if (!todo) return;
       if (checked === undefined) todo.checked = !todo.checked;
       else todo.checked = checked;
+      if (todo.checked) todo.finishedAt = dayjs().toISOString();
     },
     createTodo: (state, title: string, category?: ITodoCategory) => {
       const createdAt = dayjs().toISOString();
       state.todoList.push({ id: nanoid(), title, createdAt, checked: false, category });
+    },
+    deleteTodo: (state, id: string) => {
+      state.todoList = state.todoList.filter((i) => i.id !== id);
     },
   })
   .methods(({ getActions, getState }) => ({
