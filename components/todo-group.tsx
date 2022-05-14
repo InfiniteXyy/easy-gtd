@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { ITodoCategory, todoModule } from '~/store';
 import { TodoItem } from './todo-item';
 
@@ -14,9 +15,13 @@ const categoryColor: Record<ITodoCategory, string> = {
 };
 export function TodoGroup(props: TodoGroupProps) {
   const { title, category } = props;
+
   const todoList = todoModule.useState((state) =>
-    state.todoList.filter((i) => i.category === category)
+    state.todoList
+      .filter((i) => i.category === category)
+      .filter((i) => !i.finishedAt || dayjs(i.finishedAt).isSame(dayjs(), 'day'))
   );
+
   const finishedCount = todoList.filter((i) => i.checked).length;
 
   return (
