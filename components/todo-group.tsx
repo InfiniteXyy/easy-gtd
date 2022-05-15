@@ -52,7 +52,7 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
           ref={dropRef}
           className={`${
             !isOver ? 'bg-neutral-100 dark:bg-neutral-700' : 'bg-neutral-200 dark:bg-neutral-600'
-          } relative overflow-hidden rounded-lg p-2 px-4`}
+          } relative overflow-hidden rounded-lg p-2 pl-4`}
         >
           <div
             className={`${
