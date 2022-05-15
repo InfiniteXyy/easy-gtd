@@ -34,14 +34,14 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
           !todo.checked
             ? 'text-neutral-700 dark:text-neutral-100'
             : 'text-neutral-300 line-through dark:text-neutral-500'
-        } relative flex items-center space-x-2 rounded-lg py-1.5 px-1 active:bg-neutral-200 active:dark:bg-neutral-600`}
+        } relative flex h-8 items-center space-x-2 rounded-lg py-1.5 px-1 active:bg-neutral-200 active:dark:bg-neutral-600`}
         onClick={isInEditMode ? undefined : () => updateTodoChecked(todo.id, !todo.checked)}
       >
         {isInEditMode ? (
           <div
             onTouchStart={(e) => controls.start(e)}
             onPointerDown={(e) => controls.start(e)}
-            className="-m-3 flex-shrink-0 p-3 text-xl"
+            className="-m-1.5 flex-shrink-0 p-1.5 text-xl"
             ref={dragRef}
           >
             <div className="i-[material-symbols-menu]" />
@@ -68,7 +68,7 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
           )}
         </div>
 
-        <div className="space-x-2 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+        <div className="flex space-x-2 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
           {isInEditMode && (
             <div
               className="i-[ic-round-delete] !text-red-500"
