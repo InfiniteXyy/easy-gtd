@@ -47,11 +47,7 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
           {finishedCount} / {todoList.length}
         </div>
       </div>
-      <Reorder.Group
-        key={String(category) + todoList.length}
-        values={todoList}
-        onReorder={reorderItems}
-      >
+      <Reorder.Group values={todoList} onReorder={reorderItems} className="relative">
         <div
           ref={dropRef}
           className={`${

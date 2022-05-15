@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import React from 'react';
-import { BackButton, Layout, Switch, RoutineList } from '~/components';
+import { BackButton, Layout, RoutineList, Switch } from '~/components';
 import { useIsServer } from '~/hooks';
 
 export default function Settings() {
@@ -45,7 +45,7 @@ function SettingItem(props: { title: string; right: React.ReactNode; onClick?: (
   return (
     <div
       onClick={props.onClick}
-      className="flex items-center justify-between rounded-lg bg-neutral-50 py-2 px-3 dark:bg-neutral-800"
+      className="flex items-center justify-between rounded-lg bg-neutral-50 py-2 px-3 active:bg-neutral-100 dark:bg-neutral-800 dark:active:bg-neutral-700"
     >
       <div className="font-medium opacity-80">{props.title}</div>
       {props.right}

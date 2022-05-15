@@ -22,7 +22,8 @@ export const TodoItem = memo(function TodoItem(props: TodoItemProps) {
 
   return (
     <Reorder.Item
-      key={todo.id}
+      itemID={todo.id}
+      layout="position"
       value={todo}
       dragListener={!isTouchDevice()}
       dragControls={controls}

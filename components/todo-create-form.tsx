@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { ITodoCategory, todoModule } from '~/store';
 import { WeekDaySelect } from './ui';
 
@@ -9,7 +10,7 @@ export function TodoCreateForm(props: TodoCreateFormProps) {
   const { showTitle } = props;
   const [input, setInput] = useState('');
   const [isCreatingRoutine, setIsCreatingRoutine] = useState(false);
-  const [routineWeekDays, setRoutineWeekDays] = useState<number[]>([]);
+  const [routineWeekDays, setRoutineWeekDays] = useState<number[]>([dayjs().day()]);
 
   const { createTodo, createRoutine, applyRoutineTodos } = todoModule.useActions();
 
@@ -28,19 +29,19 @@ export function TodoCreateForm(props: TodoCreateFormProps) {
   };
 
   const createButtonCls =
-    'w-full flex items-center justify-center gap-2 font-medium text-lg bg-neutral-100 dark:bg-neutral-600 rounded-lg h-10 px-2';
+    'w-full flex items-center justify-center gap-2 font-medium border bg-white dark:bg-neutral-900 shadow-sm rounded-lg h-10 px-2 dark:border-neutral-500';
 
   const addToInboxBtn = (
     <button className={createButtonCls} onClick={handleCreate()}>
       <div className="i-[akar-icons-inbox] text-xl" />
-      <span>Put in the inbox</span>
+      <span>Add to Inbox</span>
     </button>
   );
 
   const addToNextBtn = (
     <button className={`${createButtonCls} text-green-600`} onClick={handleCreate('next')}>
       <span>Do Now</span>
-      <div className="i-[material-symbols-chevron-right] text-2xl" />
+      <div className="i-[material-symbols-chevron-right] text-xl" />
     </button>
   );
 
@@ -60,16 +61,15 @@ export function TodoCreateForm(props: TodoCreateFormProps) {
     <div className="space-y-4">
       {showTitle && <h1 className="text-2xl font-bold">Create A Task</h1>}
       <input
-        className="h-10 rounded-lg w-full bg-neutral-100 px-4 dark:bg-neutral-600"
+        className="h-10 w-full rounded-lg border bg-white px-4 dark:border-neutral-600 dark:bg-neutral-800"
         placeholder="What do you need to do?"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      {isCreatingRoutine && <WeekDaySelect value={routineWeekDays} onChange={setRoutineWeekDays} />}
       <div className="flex space-x-4">
         <button
           className={`${createButtonCls} ${
-            isCreatingRoutine ? 'bg-blue-400 text-white dark:bg-blue-700' : 'text-blue-400'
+            isCreatingRoutine ? '!bg-blue-400 text-white dark:bg-blue-700' : 'text-blue-400'
           } !w-fit !justify-center`}
           onClick={() => setIsCreatingRoutine(!isCreatingRoutine)}
         >
@@ -79,6 +79,7 @@ export function TodoCreateForm(props: TodoCreateFormProps) {
         {!isCreatingRoutine && addToMaybeBtn}
         {!isCreatingRoutine && addToNextBtn}
       </div>
+      {isCreatingRoutine && <WeekDaySelect value={routineWeekDays} onChange={setRoutineWeekDays} />}
       {!isCreatingRoutine && addToInboxBtn}
     </div>
   );
