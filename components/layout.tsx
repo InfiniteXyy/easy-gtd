@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import React from 'react';
 
 interface LayoutProps {
@@ -15,15 +14,7 @@ export function Layout({ children, left, right, title }: LayoutProps) {
         <h1 className="text-xl font-bold">{title}</h1>
         {right ?? <div className="w-5" />}
       </header>
-      <motion.main
-        className="overflow-auto scrollbar-hide"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 10 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-      >
-        {children}
-      </motion.main>
+      <main className="overflow-auto scrollbar-hide">{children}</main>
     </div>
   );
 }
