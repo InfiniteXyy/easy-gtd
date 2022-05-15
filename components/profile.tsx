@@ -4,7 +4,7 @@ import { Modal, SettingItem } from './ui';
 export function ProfileSettingItem() {
   const { data: account } = useAccount();
   const { connect } = useConnect({ connector: new WalletConnectConnector({ options: {} }) });
-  const { disconnect } = useDisconnect();
+  const { disconnectAsync } = useDisconnect();
 
   const [detailModalVisible, setDetailModalVisible] = useState(false);
 
@@ -42,7 +42,10 @@ export function ProfileSettingItem() {
               Cancel
             </button>
             <button
-              onClick={() => disconnect()}
+              onClick={async () => {
+                await disconnectAsync();
+                setDetailModalVisible(false);
+              }}
               className="h-10 w-full rounded-lg border bg-red-500 font-medium text-white shadow-sm dark:border-neutral-500"
             >
               Disconnect

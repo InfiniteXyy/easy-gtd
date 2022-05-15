@@ -2,10 +2,7 @@ import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { defineModule } from 'zoov';
 import { persist } from 'zustand/middleware';
-
-function sorterBy<T>(pick: (object: T) => boolean | number | string) {
-  return (a: T, b: T) => (pick(a) < pick(b) ? -1 : 1);
-}
+import { sorterBy } from '~/common';
 
 export type ITodoCategory = 'next' | 'project' | 'maybe' | 'waiting';
 export type ITodo = {
