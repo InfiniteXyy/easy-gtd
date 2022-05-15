@@ -21,6 +21,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.1.10
   react: 18.1.0
   react-dnd: ^16.0.1
+  react-dnd-html5-backend: ^16.0.1
   react-dnd-touch-backend: ^16.0.1
   react-dom: 18.1.0
   tailwind-scrollbar-hide: ^1.1.7
@@ -43,6 +44,7 @@ dependencies:
   next-themes: 0.2.0_d30c2367b03c877b70a67c330200ac54
   react: 18.1.0
   react-dnd: 16.0.1_3e3fc088011d0483c931e9720419cdf4
+  react-dnd-html5-backend: 16.0.1
   react-dnd-touch-backend: 16.0.1
   react-dom: 18.1.0_react@18.1.0
   tailwind-scrollbar-hide: 1.1.7
@@ -2038,6 +2040,12 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
     dev: true
+
+  /react-dnd-html5-backend/16.0.1:
+    resolution: {integrity: sha512-Wu3dw5aDJmOGw8WjH1I1/yTH+vlXEL4vmjk5p+MHxP8HuHJS1lAGeIdG/hze1AvNeXWo/JgULV87LyQOr+r5jw==}
+    dependencies:
+      dnd-core: 16.0.1
+    dev: false
 
   /react-dnd-touch-backend/16.0.1:
     resolution: {integrity: sha512-NonoCABzzjyWGZuDxSG77dbgMZ2Wad7eQiCd/ECtsR2/NBLTjGksPUx9UPezZ1nQ/L7iD130Tz3RUshL/ClKLA==}

@@ -60,7 +60,7 @@ export const todoModule = defineModule<{ todoList: ITodo[]; routines: IRoutine[]
       routineId?: string,
       createAt?: string
     ) {
-      const createdAt = createAt || dayjs().toISOString();
+      const createdAt = createAt || dayjs().startOf('day').toISOString();
       state.todoList.push({ id: nanoid(), title, createdAt, checked: false, category, routineId });
     },
     deleteTodo(state, id: string) {
@@ -84,11 +84,11 @@ export const todoModule = defineModule<{ todoList: ITodo[]; routines: IRoutine[]
     applyRoutineTodos: () => {
       const { createTodo } = getActions();
       const { routines, todoList } = getState();
-      const now = dayjs();
+      const now = dayjs().startOf('day');
       for (const routine of routines.filter((i) => i.config.includes(now.day()))) {
         // if a routine has already been created today, skip it
         const relatedTodos = todoList.filter((i) => i.routineId === routine.id);
-        if (!relatedTodos.find((i) => dayjs(i.createdAt).isSame(now, 'day'))) {
+        if (!relatedTodos.some((i) => dayjs(i.createdAt).isSame(now, 'day'))) {
           createTodo(routine.title, 'project', routine.id);
         }
       }
@@ -97,9 +97,9 @@ export const todoModule = defineModule<{ todoList: ITodo[]; routines: IRoutine[]
       const { createTodo } = getActions();
       const { todoList } = getState();
       if (todoList.length > 0) return;
-      createTodo('[Finish] me by click', 'next');
-      createTodo('[Create] a task by click the "+" button', 'next');
-      createTodo('[Delete] a task by enter edit mode', 'next');
+      createTodo('Finish a task by click', 'next');
+      createTodo('Create/Edit a task by click the "edit" icon', 'next');
+      createTodo('Reorder a task by drag and drop', 'next');
       createTodo('Put this app on blockchain', 'waiting', undefined, '2022-05-13');
       createTodo('Clone the Github Repo', 'maybe');
       createTodo('Learn some Web3 knowledge', 'maybe');

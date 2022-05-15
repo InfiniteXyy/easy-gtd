@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { Layout, TodoCreateModal, TodoGroup } from '~/components';
 import { useIsServer } from '~/hooks';
+import { Layout, TodoCreateForm, TodoGroup } from '~/components';
 import { todoModule, uiModule } from '~/store';
 
 export default function Index() {
   const { initDefaultTodoList, applyRoutineTodos } = todoModule.useActions();
   const [{ isInEditMode }, { setInEditMode }] = uiModule.use();
-  const [addModalVisible, setAddModalVisible] = useState(false);
 
   const isServer = useIsServer();
   useEffect(() => {
@@ -22,22 +22,30 @@ export default function Index() {
       right={
         <div className="flex space-x-5">
           <Link href="/settings">
-            <div className="i-[ant-design-setting-outlined] text-2xl" />
+            <div className="i-[material-symbols-more-horiz] text-2xl" />
           </Link>
           <div
             className={`${isInEditMode ? 'i-[ic-round-check]' : 'i-[akar-icons-edit]'} text-2xl`}
             onClick={() => setInEditMode(!isInEditMode)}
           />
-          <div
-            className="i-[ic-round-add-circle-outline] text-2xl"
-            onClick={() => setAddModalVisible(!addModalVisible)}
-          />
         </div>
       }
     >
-      <TodoCreateModal visible={addModalVisible} onCancel={() => setAddModalVisible(false)} />
+      <AnimatePresence>
+        {isInEditMode && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+          >
+            <div className="overflow-hidden rounded-lg border bg-neutral-50 p-4 dark:border-neutral-600 dark:bg-neutral-800">
+              <TodoCreateForm showTitle={false} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {!isServer && (
-        <div className="space-y-4 overflow-auto">
+        <div className="mt-2 space-y-4 overflow-auto">
           <TodoGroup category="next" title="Next" />
           <TodoGroup category="project" title="Daily" />
           <TodoGroup category="waiting" title="Waiting For" />

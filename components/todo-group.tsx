@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { AnimatePresence, Reorder } from 'framer-motion';
+import { Reorder } from 'framer-motion';
 import { useDrop } from 'react-dnd';
 import shallow from 'zustand/shallow';
 import { ITodoCategory, todoModule } from '~/store';
@@ -67,7 +67,7 @@ export const TodoGroup = memo(function TodoGroup(props: TodoGroupProps) {
           {todoList.length > 0 ? (
             todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
           ) : (
-            <div className="dark:text-neutral-500 text-center font-medium leading-10 text-neutral-300">
+            <div className="text-center text-xs font-medium leading-8 text-neutral-300 dark:text-neutral-500">
               No Tasks
             </div>
           )}

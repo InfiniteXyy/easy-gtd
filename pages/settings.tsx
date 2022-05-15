@@ -1,4 +1,5 @@
 import { useTheme } from 'next-themes';
+import Link from 'next/link';
 import React from 'react';
 import { BackButton, Layout, Switch, RoutineList } from '~/components';
 import { useIsServer } from '~/hooks';
@@ -9,7 +10,7 @@ export default function Settings() {
   if (isServer) return null;
   return (
     <Layout title="Setting" left={<BackButton />}>
-      <div className="space-y-2">
+      <div className="mt-4 space-y-2">
         <SettingItem
           title="Use System Theme"
           right={
@@ -31,15 +32,21 @@ export default function Settings() {
             />
           }
         />
+        <Link href="/logs">
+          <SettingItem title="View logs" right={<div className="i-[carbon-chevron-right]" />} />
+        </Link>
         <RoutineList />
       </div>
     </Layout>
   );
 }
 
-function SettingItem(props: { title: string; right: React.ReactNode }) {
+function SettingItem(props: { title: string; right: React.ReactNode; onClick?: () => void }) {
   return (
-    <div className="flex items-center justify-between rounded-lg bg-neutral-50 py-2 px-3 dark:bg-neutral-800">
+    <div
+      onClick={props.onClick}
+      className="flex items-center justify-between rounded-lg bg-neutral-50 py-2 px-3 dark:bg-neutral-800"
+    >
       <div className="font-medium opacity-80">{props.title}</div>
       {props.right}
     </div>

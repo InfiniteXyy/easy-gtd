@@ -8,10 +8,3 @@ body,
   height: 100%;
   user-select: none;
 }
-
-@font-face {
-  font-family: 'poetsen-one';
-  src: url('/fonts/PoetsenOne-Regular.ttf');
-  font-weight: 500;
-  font-style: normal;
-}

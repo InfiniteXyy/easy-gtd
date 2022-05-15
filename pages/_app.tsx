@@ -6,7 +6,10 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import '../styles/globals.css';
+import { isTouchDevice } from '~/common';
 
 dayjs.extend(relativeTime);
 
@@ -20,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </Head>
-      <DndProvider backend={TouchBackend}>
+      <DndProvider backend={isTouchDevice() ? TouchBackend : HTML5Backend}>
         <ThemeProvider defaultTheme="system" attribute="class">
           <AnimatePresence exitBeforeEnter>
             <Component {...pageProps} />
