@@ -1,7 +1,14 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import React from 'react';
-import { BackButton, Layout, RoutineList, Switch } from '~/components';
+import {
+  BackButton,
+  Layout,
+  ProfileSettingItem,
+  RoutineList,
+  SettingItem,
+  Switch,
+} from '~/components';
 import { useIsServer } from '~/hooks';
 
 export default function Settings() {
@@ -32,23 +39,12 @@ export default function Settings() {
             />
           }
         />
-        <Link href="/logs">
-          <SettingItem title="View logs" right={<div className="i-[carbon-chevron-right]" />} />
+        <Link href="/histories">
+          <SettingItem title="View history" right={<div className="i-[carbon-chevron-right]" />} />
         </Link>
+        <ProfileSettingItem />
         <RoutineList />
       </div>
     </Layout>
-  );
-}
-
-function SettingItem(props: { title: string; right: React.ReactNode; onClick?: () => void }) {
-  return (
-    <div
-      onClick={props.onClick}
-      className="flex items-center justify-between rounded-lg bg-neutral-50 py-2 px-3 active:bg-neutral-100 dark:bg-neutral-800 dark:active:bg-neutral-700"
-    >
-      <div className="font-medium opacity-80">{props.title}</div>
-      {props.right}
-    </div>
   );
 }

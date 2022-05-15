@@ -17,7 +17,7 @@ export default function Logs() {
   }, [todoList]);
 
   return (
-    <Layout title="Logs" left={<BackButton />}>
+    <Layout title="History" left={<BackButton />}>
       {!isServer && (
         <div className="mt-4 space-y-2">
           {Object.entries(dates)

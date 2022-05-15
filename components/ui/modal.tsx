@@ -22,7 +22,7 @@ export function Modal(props: ModalProps) {
             onClick={onCancel}
             className="-z-1 absolute inset-0 bg-black"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
+            animate={{ opacity: 0.2 }}
             exit={{ opacity: 0 }}
           />
         )}
@@ -36,7 +36,7 @@ export function Modal(props: ModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="z-20 w-full rounded-tl-3xl rounded-tr-3xl border-2 border-black bg-white p-5 shadow-xl dark:border-neutral-300 dark:bg-neutral-800 md:rounded-3xl">
+            <div className="z-20 w-full rounded-tl-3xl rounded-tr-3xl border border-neutral-200 bg-white p-5 shadow-xl dark:border-neutral-800 dark:bg-neutral-800 md:rounded-3xl">
               {children}
             </div>
           </motion.div>
