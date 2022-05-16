@@ -51,7 +51,7 @@ export default function Index() {
           <TodoGroup category="waiting" title="Waiting For" />
           <TodoGroup category="maybe" title="Maybe" />
           <TodoGroup title="Inbox" />
-          <div className="text-xs text-neutral-300">
+          <div className="text-xs text-neutral-300 pb-4">
             Unfinished tasks will be carried over to tomorrow
           </div>
         </div>

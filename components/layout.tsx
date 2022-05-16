@@ -8,7 +8,7 @@ interface LayoutProps {
 }
 export function Layout({ children, left, right, title }: LayoutProps) {
   return (
-    <div className="mx-auto flex h-full max-w-[600px] flex-col overflow-hidden p-5 text-neutral-900 dark:text-neutral-200">
+    <div className="mx-auto flex h-full max-w-[600px] flex-col overflow-hidden p-5 pb-0 text-neutral-900 dark:text-neutral-200">
       <header className="flex items-center justify-between pb-2">
         {left ?? <div className="w-5" />}
         <h1 className="text-xl font-bold">{title}</h1>
