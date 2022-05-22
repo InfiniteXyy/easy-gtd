@@ -1,14 +1,7 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import React from 'react';
-import {
-  BackButton,
-  Layout,
-  ProfileSettingItem,
-  RoutineList,
-  SettingItem,
-  Switch,
-} from '~/components';
+import { BackButton, Layout, RoutineList, SettingItem, Switch } from '~/components';
 import { useIsServer } from '~/hooks';
 
 export default function Settings() {
@@ -42,7 +35,6 @@ export default function Settings() {
         <Link href="/histories">
           <SettingItem title="View history" right={<div className="i-[carbon-chevron-right]" />} />
         </Link>
-        <ProfileSettingItem />
         <RoutineList />
       </div>
     </Layout>

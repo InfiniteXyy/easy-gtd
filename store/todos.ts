@@ -22,7 +22,6 @@ export type IRoutine = {
   createdAt: string;
   config: number[];
 };
-
 export const todoModule = defineModule<{ todoList: ITodo[]; routines: IRoutine[] }>({
   todoList: [],
   routines: [],
