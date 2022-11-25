@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useIsServer } from '~/hooks';
 import { Layout, TodoCreateForm, TodoGroup } from '~/components';
+import { useIsServer } from '~/hooks';
 import { todoModule, uiModule } from '~/store';
 
 export default function Index() {
@@ -51,7 +51,7 @@ export default function Index() {
           <TodoGroup category="waiting" title="Waiting For" />
           <TodoGroup category="maybe" title="Maybe" />
           <TodoGroup title="Inbox" />
-          <div className="text-xs text-neutral-300 pb-4">
+          <div className="pb-4 text-xs text-neutral-300">
             Unfinished tasks will be carried over to tomorrow
           </div>
         </div>

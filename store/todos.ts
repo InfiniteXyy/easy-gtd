@@ -92,7 +92,7 @@ export const todoModule = defineModule<{ todoList: ITodo[]; routines: IRoutine[]
     initDefaultTodoList: () => {
       const { createTodo } = getActions();
       const { todoList } = getState();
-      if (todoList.length > 0) return;
+      if (todoList.length > 0 || process.env.NODE_ENV !== 'development') return;
       createTodo('Finish a task by click', 'next');
       createTodo('Create/Edit a task by click the "edit" icon', 'next');
       createTodo('Reorder a task by drag and drop', 'next');
